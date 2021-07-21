@@ -25,39 +25,44 @@
           <div class="row">
             <div class="col-md-6">
               <label for="exampleFormControlInput1" class="form-label">第一個數字</label>
-              <input id="num1" type="number" class="form-control" placeholder="請輸入要計算的第一個數字" />
+              <input id="num1" type="number" class="form-control" placeholder="請輸入要計算的第一個數字" v-model.number="num1"/>
             </div>
             <div class="col-md-6">
               <label for="num2" class="form-label">第二個數字</label>
-              <input id="num2" type="number" class="form-control" placeholder="請輸入要計算的第二個數字" />
+              <input id="num2" type="number" class="form-control" placeholder="請輸入要計算的第二個數字" v-model.number="num2"/>
             </div>
             <div class="col-md-12 mt-3">
               <div class="btn-group w-100">
-                <button type="button" class="btn btn-outline-primary w-25">
+                <button type="button" class="btn btn-outline-primary w-25" 
+                  :class="{active: operator==='+'}" @click="operator = '+'">
                   +
                 </button>
-                <button type="button" class="btn btn-outline-primary w-25">
+                <button type="button" class="btn btn-outline-primary w-25" 
+                  :class="{active: operator==='-'}" @click="operator = '-'">
                   -
                 </button>
-                <button type="button" class="btn btn-outline-primary w-25">
+                <button type="button" class="btn btn-outline-primary w-25" 
+                  :class="{active: operator==='*'}" @click="operator = '*'">
                   *
                 </button>
-                <button type="button" class="btn btn-outline-primary w-25">
+                <button type="button" class="btn btn-outline-primary w-25" 
+                  :class="{active: operator==='/'}" @click="operator = '/'">
                   /
                 </button>
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-primary d-block mt-3 w-100">
+          <button type="button" class="btn btn-outline-primary d-block mt-3 w-100" @click="getResult">
             計算結果
           </button>
-          <h4 class="mt-3">結果：100</h4>
+          <h4 class="mt-3">結果：{{result}}</h4>
         </div>
         <div class="col-3">
           <h5>歷史紀錄</h5>
           <ul>
-            <li>
-              1 + 1 = 2
+            <li v-for="item in history">
+              {{item}}
+              <!-- 1 + 1 = 2 -->
             </li>
           </ul>
         </div>
@@ -66,7 +71,41 @@
   </div>
   <script src="https://unpkg.com/vue@next"></script>
   <script>
-    Vue.createApp({}).mount('#app');
+    Vue.createApp({
+      data() {
+        return {
+          num1: 0,
+          num2: 0,
+          operator: '+',
+          result: 0,
+          history: [],
+        }
+      },
+      methods: {
+        getResult() {
+          if (this.operator === '+') {
+            this.result = this.num1 + this.num2
+          } else if (this.operator === '-') { 
+            this.result = this.num1 - this.num2
+          } else if (this.operator === '*') {
+            this.result = this.num1 * this.num2
+          } else {
+            this.result = this.num1 / this.num2
+          }
+
+          let reset = `${this.num1} ${this.operator} ${this.num2} = ${this.result}`
+          if (this.history.length > 9) this.history.pop()
+          this.history.unshift(reset)
+          localStorage.setItem('history', JSON.stringify(this.history))
+          this.num1 = 0
+          this.num2 = 0
+          this.operator = '+'
+        }
+      },
+      mounted() {
+        localStorage.clear()
+      }
+    }).mount('#app');
   </script>
 </body>
 
