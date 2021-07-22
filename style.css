@@ -1,0 +1,83 @@
+html, body {
+  height: 100%;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.calculator-warp {
+  max-width: 500px;
+  margin: 30px auto 30px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fdb809;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 20px);
+  margin: 10px;
+  padding: 10px;
+  background-color: #d5e5e7;
+  border: 1px solid #333;
+  border-radius: 10px;
+}
+
+.input-control {
+  flex: 1 1 0;
+  width: 20%;
+  text-align: center;
+  border: 0px;
+  border-bottom: solid 2px #333;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.btn-content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.btn-item {
+  width: calc(33% - 20px);
+  height: 50px;
+  margin: 10px;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+  background-color: #e8f478;
+  border-radius: 10px;
+  box-shadow: 0px 5px #8f8f8f;
+}
+
+.btn-operator {
+  color: #fc803e;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.btn-operator:last-child {
+  color: #fff;
+  background-color: #ee2820;
+}
+
+.btn-operator:active {
+  box-shadow: none;
+  transform: translate(0, 5px)
+}
+
+.history-control {
+  padding: 20px 20px 0;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid #333;
+  border-radius: 10px;
+}
+
+.history-control ul {
+  display: flex;
+  flex-flow: column wrap;
+  height: 180px;
+}
