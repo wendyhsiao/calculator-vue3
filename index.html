@@ -9,66 +9,59 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-  <style>
-    html,
-    body {
-      height: 100%;
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div id="app" class="h-100 d-flex align-items-center">
+  <div id="app">
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-6">
-          <div class="row">
-            <div class="col-md-6">
-              <label for="exampleFormControlInput1" class="form-label">第一個數字</label>
-              <input id="num1" type="number" class="form-control" placeholder="請輸入要計算的第一個數字" v-model.number="num1"/>
-            </div>
-            <div class="col-md-6">
-              <label for="num2" class="form-label">第二個數字</label>
-              <input id="num2" type="number" class="form-control" placeholder="請輸入要計算的第二個數字" v-model.number="num2"/>
-            </div>
-            <div class="col-md-12 mt-3">
-              <div class="btn-group w-100">
-                <button type="button" class="btn btn-outline-primary w-25" 
-                  :class="{active: operator==='+'}" @click="operator = '+'">
-                  +
-                </button>
-                <button type="button" class="btn btn-outline-primary w-25" 
-                  :class="{active: operator==='-'}" @click="operator = '-'">
-                  -
-                </button>
-                <button type="button" class="btn btn-outline-primary w-25" 
-                  :class="{active: operator==='*'}" @click="operator = '*'">
-                  *
-                </button>
-                <button type="button" class="btn btn-outline-primary w-25" 
-                  :class="{active: operator==='/'}" @click="operator = '/'">
-                  /
-                </button>
-              </div>
-            </div>
+      <div class="calculator-warp">
+        <div class="input-group">
+          <input id="num1" type="number" class="input-control" placeholder="請輸入要計算的第一個數字" v-model.number="num1" />
+          <!-- <span class="">{{ operator }}</span> -->
+          {{ operator }}
+          <input id="num2" type="number" class="input-control" placeholder="請輸入要計算的第二個數字" v-model.number="num2" />
+          <!-- <span class="">=</span> -->
+          =
+          <span class="input-control">{{result}}</span>
+        </div>
+        <div class="btn-content">
+          <div class="btn-item"></div>
+          <div class="btn-item btn-operator" :class="{active: operator==='+'}" @click="operator = '+'">
+            <strong>+</strong>
           </div>
-          <button type="button" class="btn btn-outline-primary d-block mt-3 w-100" @click="getResult">
-            計算結果
-          </button>
-          <h4 class="mt-3">結果：{{result}}</h4>
+          <div class="btn-item btn-operator" :class="{active: operator==='-'}" @click="operator = '-'">
+            <strong>-</strong>
+          </div>
+          <div class="btn-item"></div>
+          <div class="btn-item btn-operator" :class="{active: operator==='*'}" @click="operator = '*'">
+            <strong>*</strong>
+          </div>
+          <div class="btn-item btn-operator" :class="{active: operator==='/'}" @click="operator = '/'">
+            <strong>/</strong>
+          </div>
+          <div class="btn-item"></div>
+          <div class="btn-item"></div>
+          <div class="btn-item btn-operator" @click="getResult">
+            <strong>=</strong>
+          </div>
         </div>
-        <div class="col-3">
-          <h5>歷史紀錄</h5>
-          <ul>
-            <li v-for="item in history">
-              {{item}}
-              <!-- 1 + 1 = 2 -->
-            </li>
-          </ul>
-        </div>
+      </div>
+      <div class="history-control">
+        <h5>歷史紀錄</h5>
+        <ul>
+          <li v-for="item in history">
+            {{item}}
+            <!-- 1 + 1 = 2 -->
+          </li>
+        </ul>
       </div>
     </div>
   </div>
+
   <script src="https://unpkg.com/vue@next"></script>
   <script>
     Vue.createApp({
