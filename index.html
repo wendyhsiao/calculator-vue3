@@ -21,10 +21,8 @@
       <div class="calculator-warp">
         <div class="input-group">
           <input id="num1" type="number" class="input-control" placeholder="請輸入要計算的第一個數字" v-model.number="num1" />
-          <!-- <span class="">{{ operator }}</span> -->
           {{ operator }}
           <input id="num2" type="number" class="input-control" placeholder="請輸入要計算的第二個數字" v-model.number="num2" />
-          <!-- <span class="">=</span> -->
           =
           <span class="input-control">{{result}}</span>
         </div>
@@ -44,7 +42,9 @@
             <strong>/</strong>
           </div>
           <div class="btn-item"></div>
-          <div class="btn-item"></div>
+          <div class="btn-item btn-operator" @click="reset">
+            <strong>AC</strong>
+          </div>
           <div class="btn-item btn-operator" @click="getResult">
             <strong>=</strong>
           </div>
@@ -90,8 +90,11 @@
           if (this.history.length > 9) this.history.pop()
           this.history.unshift(reset)
           localStorage.setItem('history', JSON.stringify(this.history))
+        },
+        reset() {
           this.num1 = 0
           this.num2 = 0
+          this.result = 0
           this.operator = '+'
         }
       },
